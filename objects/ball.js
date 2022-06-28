@@ -1,3 +1,8 @@
+const BALL_ORIGIN = new Vector2(25, 25);
+const BALL_DIAMETER = 38;
+const BALL_RADIUS = BALL_DIAMETER / 2;
+const HOLE_RADIUS = 46;
+
 class Ball {
     constructor (position, color) {
         this.position = position;
