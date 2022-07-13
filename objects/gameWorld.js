@@ -1,10 +1,12 @@
 const DELTA = 1 / 177;
 
+var a = 10;
 class GameWorld {
   constructor() {
     // create the ball
     this.position = 413;
-    this.isToRight = true;
+    this.canvas1 = document.getElementById("screen");
+    // this.isToRight = true;
     this.ball = new Ball(new Vector2(this.position, 413), Color.white);
 
     // create the stick
@@ -34,12 +36,26 @@ class GameWorld {
     this.table.update(DELTA);
     this.ball.update(DELTA);
     this.stick.update(DELTA);
-    let newPosition = null;
-    if (this.position + 1 > 1425) {
-      newPosition = this.position--;
-    } else {
-      newPosition = this.position += 1;
+    debugger;
+
+    var b = this.position;
+    let newPosition = 0;
+
+    if (b > this.canvas1.width - 80) {
+      a = -10;
+      this.position = newPosition;
+    } else if (b < 80 && b < this.canvas1.width - 80) {
+      a = 10;
+      this.position = newPosition;
     }
+    newPosition = b + a;
+    this.position = newPosition;
+
+    // if (this.position < this.canvas1.width - 75 && b === this.position) {
+    //   newPosition = this.position += a;
+    // } else if (this.position > this.canvas1.width - 75 && b === this.position) {
+    //   newPosition = this.position -= a;
+    // }
 
     this.ball = new Ball(new Vector2(newPosition, 413), Color.white);
   }
@@ -52,3 +68,9 @@ class GameWorld {
     this.stick.draw();
   }
 }
+
+// if (this.position - 1 < canvas1.heigth + 75)
+
+// else {
+//   newPosition = this.position -= a;
+// }
