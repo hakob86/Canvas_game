@@ -5,6 +5,7 @@ class Canvas2D {
   }
 
   clear() {
+    // debugger;
     this.cavasContext.clearRect(0, 0, this.cavas.width, this.cavas.height);
   }
 
