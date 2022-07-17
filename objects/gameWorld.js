@@ -1,5 +1,11 @@
 const DELTA = 1 / 177;
 const boardWidth = 77;
+const tableWidth = 1500;
+const tableHeight = 900;
+
+function calcPercent(num, percent) {
+  return (Math.abs(num) * percent) / 100;
+}
 
 class GameWorld {
   constructor() {
@@ -50,8 +56,8 @@ class GameWorld {
 
         this.ballSpeedX = -x;
         this.ballSpeedY = -y;
-        this.minusNumFromBallX = (Math.abs(x) * 0.3) / 100;
-        this.minusNumFromBallY = (Math.abs(y) * 0.3) / 100;
+        this.minusNumFromBallX = calcPercent(x, 0.3);
+        this.minusNumFromBallY = calcPercent(y, 0.3);
         this.isInMove = true;
       }
     }
@@ -85,46 +91,39 @@ class GameWorld {
       (this.ballPositionX < boardWidth &&
         this.ballPositionX < this.canvas1.width - boardWidth)
     ) {
-      this.ballSpeedX *= -1;
-    } else {
-      this.ballSpeedX *= 1;
+      this.ballSpeedX = -this.ballSpeedX;
     }
+
     if (
       this.ballPositionY > this.canvas1.height - boardWidth * 2 ||
       (this.ballPositionY < boardWidth &&
         this.ballPositionY < this.canvas1.height - boardWidth)
     ) {
-      this.ballSpeedY *= -1;
-    } else {
-      this.ballSpeedY *= 1;
+      this.ballSpeedY = -this.ballSpeedY;
     }
+
     let newPositionWidth = this.ballPositionX + this.ballSpeedX;
     let newPositionHeight = this.ballPositionY + this.ballSpeedY;
     this.ballPositionX = newPositionWidth;
     this.ballPositionY = newPositionHeight;
 
-    if (newPositionWidth > 1425) {
-      newPositionWidth = 1425;
+    if (newPositionWidth > tableWidth - boardWidth) {
+      newPositionWidth = tableWidth - boardWidth;
     }
     if (newPositionWidth < boardWidth) {
       newPositionWidth = boardWidth;
     }
 
-    if (newPositionHeight > 825) {
-      newPositionHeight = 825;
+    if (newPositionHeight > tableHeight - boardWidth) {
+      newPositionHeight = tableHeight - boardWidth;
     }
 
-    if (newPositionHeight < 75) {
-      newPositionHeight = 75;
+    if (newPositionHeight < boardWidth) {
+      newPositionHeight = boardWidth;
     }
     this.ball = new Ball(
       new Vector2(newPositionWidth, newPositionHeight),
       Color.white
-    );
-    this.stickPositionX = newPositionWidth;
-    this.stickPositionY = newPositionHeight;
-    this.stick = new Stick(
-      new Vector2(this.stickPositionX, this.stickPositionY)
     );
   }
 
