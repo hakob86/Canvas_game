@@ -1,23 +1,25 @@
 class Game {
-  constructor() {}
+    constructor() {
 
-  init() {
-    this.gameWorld = new GameWorld();
-  }
+    }
 
-  start() {
-    PoolGame.init();
-    PoolGame.mainLoop();
-  }
+    init () {
+        this.gameWorld = new GameWorld();
+    }
 
-  mainLoop() {
-    Canvas.clear();
-    PoolGame.gameWorld.update();
-    PoolGame.gameWorld.draw();
-    Mouse.reset();
+    start () {
+        PoolGame.init();
+        PoolGame.mainLoop();
+    }
 
-    requestAnimationFrame(PoolGame.mainLoop);
-  }
+    mainLoop () {
+        Canvas.clear();
+        PoolGame.gameWorld.update();
+        PoolGame.gameWorld.draw();
+        Mouse.reset();
+
+        requestAnimationFrame(PoolGame.mainLoop);
+    }
 }
 
 const PoolGame = new Game();
