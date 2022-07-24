@@ -2,27 +2,10 @@ const DELTA = 1 / 177;
 
 class GameWorld {
   constructor() {
-    this.balls = [
-      [new Vector2(1022, 413), Color.yellow],
-      [new Vector2(1056, 393), Color.yellow],
-      [new Vector2(1056, 433), Color.red],
-      [new Vector2(1090, 374), Color.red],
-      [new Vector2(1090, 413), Color.black],
-      [new Vector2(1090, 452), Color.yellow],
-      [new Vector2(1126, 354), Color.yellow],
-      [new Vector2(1126, 393), Color.red],
-      [new Vector2(1126, 433), Color.yellow],
-      [new Vector2(1126, 472), Color.red],
-      [new Vector2(1162, 335), Color.red],
-      [new Vector2(1162, 374), Color.red],
-      [new Vector2(1162, 413), Color.yellow],
-      [new Vector2(1162, 452), Color.red],
-      [new Vector2(1162, 481), Color.yellow],
-      [new Vector2(413, 413), Color.white],
-    ].map((params) => new Ball(params[0], params[1]));
+    this.balls = CONSTANTS.ballsParams.map((params) => new Ball(...params));
 
     // create the ball
-    this.ball = this.balls[this.balls.length - 1];
+    this.ball = this.balls.find((ball) => ball.color === Color.white);
 
     // create the stick
     this.stick = new Stick(
@@ -42,6 +25,7 @@ class GameWorld {
 
   handleCollisions() {
     for (let i = 0; i < this.balls.length; i++) {
+      this.balls[i].handleBallInPocket();
       this.balls[i].collideWithTable(this.table);
       for (let j = i + 1; j < this.balls.length; j++) {
         const firstBall = this.balls[i];

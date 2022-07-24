@@ -1,4 +1,3 @@
-const BALL_ORIGIN = new Vector2(25, 25);
 const BALL_DIAMETER = 38;
 const BALL_RADIUS = BALL_DIAMETER / 2;
 const HOLE_RADIUS = 46;
@@ -10,10 +9,16 @@ class Ball {
     this.moving = false;
     // get ball sprite by its color
     this.sprite = getBallSpriteByColor(color);
+    this.color = color;
+    this.visible = true;
   }
 
   // update method is called every frame (see detailed description in the dock)
   update(delta) {
+    if (!this.visible) {
+      return;
+    }
+
     this.position.addTo(this.velocity.mult(delta));
     this.velocity = this.velocity.mult(0.984);
     if (this.velocity.length() < 5) {
@@ -24,7 +29,11 @@ class Ball {
 
   // draws sprite every frame
   draw() {
-    Canvas.drawImage(this.sprite, this.position, BALL_ORIGIN);
+    if (!this.visible) {
+      return;
+    }
+
+    Canvas.drawImage(this.sprite, this.position, CONSTANTS.ballOrigin);
   }
 
   shoot(power, rotation) {
@@ -36,6 +45,10 @@ class Ball {
   }
 
   collideWithBall(ball) {
+    if (!this.visible || !ball.visible) {
+      return;
+    }
+
     const n = this.position.substract(ball.position);
 
     const dist = n.length();
@@ -71,8 +84,24 @@ class Ball {
     ball.moving = true;
   }
 
+  handleBallInPocket() {
+    if (!this.visible) {
+      return;
+    }
+
+    let inPocket = CONSTANTS.pockets.some((pocket) => {
+      return this.position.distanceFrom(pocket) < CONSTANTS.pocketRadius;
+    });
+
+    if (!inPocket) {
+      return;
+    }
+    this.visible = false;
+    this.moving = false;
+  }
+
   collideWithTable(table) {
-    if (!this.moving) {
+    if (!this.moving || !this.visible) {
       return;
     }
     let collided = false;
