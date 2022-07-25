@@ -18,14 +18,12 @@ const CONSTANTS = {
     [new Vector2(413, 413), Color.white],
   ],
 
-  // Stick
   maxShotPower: 8000,
   powerInterval: 120,
   originXInterval: 5,
   stickOrigin: new Vector2(970, 11),
   stickShotOrigin: new Vector2(950, 11),
 
-  // Ball
   whiteBallInitialPos: new Vector2(413, 413),
   ballOrigin: new Vector2(25, 25),
   ballDiameter: 38,
@@ -34,7 +32,6 @@ const CONSTANTS = {
   frictionEnergyLoss: 0.016,
   collisionEnergyLoss: 0.02,
 
-  // Table
   pocketRadius: 46,
   pockets: [
     new Vector2(750, 32),

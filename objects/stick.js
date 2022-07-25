@@ -18,12 +18,12 @@ class Stick {
     }
 
     if (Mouse.left.down) {
-      this.increasePower();
+      this.powerUp();
     } else if (this.power > 0) {
       this.shoot();
     }
 
-    this.updateRotation();
+    this.rotateStick();
   }
 
   // draws sprite every frame
@@ -31,13 +31,13 @@ class Stick {
     Canvas.drawImage(sprites.stick, this.position, this.origin, this.rotation);
   }
 
-  updateRotation() {
+  rotateStick() {
     let opposite = Mouse.position.y - this.position.y;
     let adjacent = Mouse.position.x - this.position.x;
     this.rotation = Math.atan2(opposite, adjacent);
   }
 
-  increasePower() {
+  powerUp() {
     if (this.power > MAX_POWER) {
       return;
     }

@@ -14,13 +14,7 @@ class GameWorld {
     );
 
     // create the table
-    // this.table = new Table();
-    this.table = {
-      TopY: 57,
-      RightX: 1443,
-      BottomY: 768,
-      LeftX: 57,
-    };
+    this.table = new Table(57, 1443, 768, 95);
   }
 
   handleCollisions() {
@@ -30,7 +24,6 @@ class GameWorld {
       for (let j = i + 1; j < this.balls.length; j++) {
         const firstBall = this.balls[i];
         const secondBall = this.balls[j];
-        // console.log(secondBall);
         firstBall.collideWithBall(secondBall);
       }
     }
@@ -50,21 +43,6 @@ class GameWorld {
       this.stick.reposition(this.ball.position);
     }
 
-    // example code for mouse inputs usage (can be removed)
-    // mouse down example
-    // if (Mouse.left.down) {
-    //   console.log("mouse down");
-    // } else {
-    //   console.log("mouse up");
-    // }
-
-    // // press and mouse position example
-    // if (Mouse.left.pressed) {
-    //   console.log("mouse pressed:", Mouse.position);
-    // }
-
-    // updating objects created in the constructor
-    // this.table.update(DELTA);
     this.ball.update(DELTA);
     this.stick.update(DELTA);
   }
@@ -78,19 +56,19 @@ class GameWorld {
     }
 
     // updating objects created in the constructor
-    // this.table.draw();
+
     this.stick.draw();
   }
 
   ballsMoving() {
-    let ballsMoving = false;
+    let isInMove = false;
 
     for (let i = 0; i < this.balls.length; i++) {
       if (this.balls[i].moving) {
-        ballsMoving = true;
+        isInMove = true;
         break;
       }
     }
-    return ballsMoving;
+    return isInMove;
   }
 }
